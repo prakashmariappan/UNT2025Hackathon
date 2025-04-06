@@ -8,7 +8,7 @@ const Home = () => {
       {/* Hero Section with App Name */}
       <div className="hero-section">
         <h1>Fraud Guard</h1>
-        <p>Your ultimate fraud detection solution for bank employees. Detect fraud, spam, and more in real-time!</p>
+        <p>Your ultimate fraud detection solution specially made for bank employees. <br/>Detect fraud, spam, and more in real-time!</p>
       </div>
 
       {/* Services Section */}
