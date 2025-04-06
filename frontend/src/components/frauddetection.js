@@ -5,42 +5,35 @@ const FraudDetection = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedRow, setExpandedRow] = useState(null);
-  const [isUpdating, setIsUpdating] = useState(false); // For feedback update loading
+  const [isUpdating, setIsUpdating] = useState(false);
 
-  // Fetch data function
   const fetchData = () => {
-    setLoading(true); // Start loading when fetching
-    fetch("https://htunt2025-yldpcq4wbq-uc.a.run.app/data", {
-      method: "GET",
-      redirect: "follow",
-    })
+    setLoading(true);
+    fetch("https://htunt2025-yldpcq4wbq-uc.a.run.app/data")
       .then((response) => {
         if (!response.ok) throw new Error("Failed to fetch");
         return response.json();
       })
       .then((result) => {
         setData(result);
-        setLoading(false); // Stop loading when done
+        setLoading(false);
       })
       .catch((error) => {
         setError(error);
-        setLoading(false); // Stop loading if error occurs
+        setLoading(false);
       });
   };
 
-  // On mount + refresh every 5 seconds
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 5000); // Refresh every 5 seconds
-    return () => clearInterval(interval); // Cleanup
+    const interval = setInterval(fetchData, 5000);
+    return () => clearInterval(interval);
   }, []);
 
-  // Toggle expanded row
   const handleRowClick = (index) => {
     setExpandedRow(expandedRow === index ? null : index);
   };
 
-  // Handle user feedback
   const handleFeedback = (index, isFraud) => {
     const selectedTransaction = data[index];
     const id = selectedTransaction.id;
@@ -49,28 +42,34 @@ const FraudDetection = () => {
       ? `https://htunt2025-yldpcq4wbq-uc.a.run.app/mark_fraud/${id}`
       : `https://htunt2025-yldpcq4wbq-uc.a.run.app/mark_safe/${id}`;
 
-    setIsUpdating(true); // Show loader when updating feedback
+    setIsUpdating(true);
 
-    fetch(endpoint, {
-      method: "GET", // ✅ Changed to GET
-    })
+    fetch(endpoint, { method: "GET" })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to send feedback");
         return res.json();
       })
       .then(() => {
-        setIsUpdating(false); // Hide loader after feedback is updated
-        fetchData(); // Reload table after feedback
-        setExpandedRow(null); // Close the feedback row after submission
+        setIsUpdating(false);
+        fetchData();
+        setExpandedRow(null);
       })
       .catch((err) => {
         console.error(err);
-        setIsUpdating(false); // Hide loader if there's an error
-        // Optional: show some error UI or message here if necessary
+        setIsUpdating(false);
       });
   };
 
-  if (loading) return <div className="loader"></div>; // Show circle loader when table is loading
+  // Custom status styling
+  const getStatusStyle = (status) => {
+    const normalized = status.toLowerCase();
+    if (normalized === "fraud") return { color: "red", fontWeight: "bold" };
+    if (normalized.includes("review")) return { color: "blue", fontWeight: "bold" };
+    if (normalized === "not fraud") return { color: "green", fontWeight: "bold" };
+    return { fontWeight: "bold" };
+  };
+
+  if (loading) return <div className="loader"></div>;
   if (error) return <div>Error fetching data: {error.message}</div>;
 
   return (
@@ -101,7 +100,7 @@ const FraudDetection = () => {
                 <td>{item.amount_before_transaction}</td>
                 <td>{item.amount_after_transaction}</td>
                 <td>{item.amount_debited !== null ? item.amount_debited : "N/A"}</td>
-                <td>{item.status}</td>
+                <td style={getStatusStyle(item.status)}>{item.status}</td>
                 <td>{new Date(item.transaction_time).toLocaleString()}</td>
                 <td>{item.is_fraud === 1 ? "Yes" : "No"}</td>
               </tr>
@@ -113,19 +112,19 @@ const FraudDetection = () => {
                       <button
                         className="btn-yes"
                         onClick={() => handleFeedback(index, true)}
-                        disabled={isUpdating} // Disable button while updating
+                        disabled={isUpdating}
                       >
                         Yes
                       </button>
                       <button
                         className="btn-no"
                         onClick={() => handleFeedback(index, false)}
-                        disabled={isUpdating} // Disable button while updating
+                        disabled={isUpdating}
                       >
                         No
                       </button>
                     </div>
-                    {isUpdating && <div className="updating-loader"></div>} {/* Circle loader during update */}
+                    {isUpdating && <div className="updating-loader"></div>}
                   </td>
                 </tr>
               )}
