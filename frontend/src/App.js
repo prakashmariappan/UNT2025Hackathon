@@ -6,12 +6,15 @@ import FraudDetection from './components/frauddetection'; // Fraud detection com
 import SpamDetection from './components/spamdetection'; // Spam detection component
 import Background from './components/background'; // Background component
 import About from './components/about';
+import Navbar from './components/navbar';
 
 const App = () => {
   return (
     <>
     <Background />
+
     <Router>
+    <Navbar />
       {/* Home Page Component */}
       <Routes>
         <Route path="/" element={<Home />} />
