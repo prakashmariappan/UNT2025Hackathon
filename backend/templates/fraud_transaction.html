@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fraud Transaction</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+
+
+</head>
+<body>
+<div class="page-wrapper">
+    <nav class="nav-bar">
+        <img src="" alt="logo" id="logoImage" width="100px" />
+    </nav>
+    <div class="form-container">
+        <!-- <div class="close-btn">✖</div> -->
+        <h2>Payment Information</h2>
+        <form  id="paymentForm">
+            <label for="company_name">Link</label>
+            <input type="text" id="company_name" required>
+
+            <label for="company_website">Company Name</label>
+            <input type="text" id="company_website" required>
+
+            <label for="Amount">Amount</label>
+            <input type="number" id="Amount" required>
+
+            <label for="destination_account_number">Destination Account Number</label>
+            <input type="number" id="destination_account_number" required>
+
+            <label for="card_number">Card Number</label>
+            <input type="number" id="card_number" maxlength="16"
+            required>
+            <div id="cardError" class="error"></div>
+
+            <label for="name_on_card">Name on card</label>
+            <input type="text" id="name_on_card" required>
+
+            <label for="expire_month">Expiry Month and Year</label>
+            <div class="select-div">
+                <select id="expire_month" required>
+                    <option value="" disabled selected>--Select Month--</option>
+                    <option value="01">Jan</option>
+                    <option value="02">Feb</option>
+                    <option value="03">Mar</option>
+                    <option value="04">Apr</option>
+                    <option value="05">May</option>
+                    <option value="06">Jun</option>
+                    <option value="07">Jul</option>
+                    <option value="08">Aug</option>
+                    <option value="09">Sep</option>
+                    <option value="10">Oct</option>
+                    <option value="11">Nov</option>
+                    <option value="12">Dec</option>
+                </select>
+
+                <!-- <label for="Name">Expiry Year</label> -->
+                <select id="expire_year" required>
+                    <option value="" disabled selected>--Select Year--</option>
+                    <option value="01">2026</option>
+                    <option value="02">2027</option>
+                    <option value="03">2028</option>
+                    <option value="04">2029</option>
+                    <option value="05">2030</option>
+                    <option value="06">2031</option>
+                    <option value="07">2032</option>
+                    <option value="08">2033</option>
+                    <option value="09">2034</option>
+                    <option value="10">2035</option>
+                </select>
+            </div>
+            <label for="Name">cvv</label>
+            <input type="number" id="cvv" pattern="\d{3,4}" maxlength="4" minlength="3"  required>
+            <div id="cvvError" class="error"></div>
+            
+            
+            <!-- <div class="password-container">
+            <input type="password" id="password" placeholder="Password" required>
+            <span class="password-toggle" onclick="togglePassword()">👁️</span>
+            </div> -->
+            
+            <!-- <div class="checkbox">
+            <input type="checkbox" id="terms">
+            <label for="terms">Lorem ipsum dolor sit amet...</label>
+            </div> -->
+            
+            <button type="submit">Pay</button>
+            
+        </form>
+    </div>
+    <footer class="footer">
+        <p>© 2025 Fraud Fence. All rights reserved.</p>
+      </footer>
+      
+</div>
+
+
+<script>
+const valuesList = ["Visa", "MasterCard", "Amex", "Discover"];
+const companyList = ["Visa Inc.", "MasterCard Corp.", "American Express Co.", "Discover Financial"];
+
+// Make sure both arrays are the same length
+const randomIndex = Math.floor(Math.random() * valuesList.length);
+
+// Assign both fields based on the same index
+const textbox = document.getElementById("company_website");
+textbox.value = valuesList[randomIndex];
+
+const companyTextbox = document.getElementById("company_name");
+companyTextbox.value = companyList[randomIndex];
+
+// Allow editing if needed
+textbox.readOnly = false;
+
+</script>
+
+<script>
+    window.onload = function () {
+
+        const logos = [
+        "../static/images/fraudAlert_logo.jpg",
+        "../static/images/maskman_logo.jpeg",
+        "../static/images/fraudFence.png"
+      ];
+      const randomLogo = logos[Math.floor(Math.random() * logos.length)];
+      document.getElementById("logoImage").src = randomLogo;
+  };
+</script>
+<script>
+    document.getElementById("paymentForm").addEventListener("submit", function (e) {
+      e.preventDefault(); // Stop normal form submission
+  
+      // Grab values
+      const destiAccountNumber = document.getElementById("destination_account_number").value.trim();
+      const cardNumber = document.getElementById("card_number").value.trim();
+      const cvv = document.getElementById("cvv").value.trim();
+      const nameOnCard = document.getElementById("name_on_card").value.trim();
+      const companyName = document.getElementById("company_name").value.trim();
+      const companyWebsite = document.getElementById("company_website").value.trim();
+      const expireMonth = document.getElementById("expire_month").value;
+      const expireYear = document.getElementById("expire_year").value;
+      const amount = document.getElementById("Amount").value.trim();
+  
+      const formdata = new FormData();
+      formdata.append("destination_account_number", destiAccountNumber); // Static for now
+      formdata.append("card_number", cardNumber);
+      formdata.append("expire_month", expireMonth);
+      formdata.append("expire_year", expireYear);
+      formdata.append("name_on_card", nameOnCard);
+      formdata.append("cvv", cvv);
+      formdata.append("Amount", amount);
+      formdata.append("company_name", companyName);
+      formdata.append("company_website", companyWebsite);
+  
+      const requestOptions = {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      };
+  
+      fetch("http://127.0.0.1:5000/predict", requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          console.log("Response from server:", result);
+          alert(result); // or show on page
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Submission failed.");
+        });
+    });
+  </script>
+  
+</body>
+</html>

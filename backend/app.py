@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
@@ -9,6 +9,8 @@ from models.transactions import Transactions
 from models import db, init_app
 from datetime import datetime
 import os
+
+
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)
@@ -55,8 +57,9 @@ def update_user_data(account_number, amount_after_transaction, user_id):
 
 @app.route('/')
 def home():
-    data = jsonify({"Home": "Online Pharmacy API is running!"})
-    return data
+    # data = jsonify({"Home": "Online Pharmacy API is running!"})
+    # return data
+    return render_template("fraud_transaction.html")
 
 
 @app.route('/predict', methods=['POST'])
