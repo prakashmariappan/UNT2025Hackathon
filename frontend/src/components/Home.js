@@ -11,10 +11,10 @@ const Home = () => {
         <h1>Fraud Guard</h1>
         <p>Your ultimate fraud detection solution specially made for bank employees. <br/>Detect fraud, spam, and more in real-time!</p>
         <Link to="/about" className="about-link">
-          About
+          Developed by Cracking Code
         </Link>
       </div>
-    
+      <div className="linearboxhome"></div>
       {/* Services Section 
       <div className="services">
         <Link to="/fraud" className="service-link">
