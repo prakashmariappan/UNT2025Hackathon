@@ -8,7 +8,7 @@ const Home = () => {
         
       {/* Hero Section with App Name */}
       <div className="hero-section">
-        <h1>Fraud Guard</h1>
+        <h1 className='hero-title'>Fraud Guard</h1>
         <p>Your ultimate fraud detection solution for bank employees. <br/> Detect fraud, spam, and more in real-time!</p>
         <Link to="/about" className="about-link">
           Developed by Cracking Code

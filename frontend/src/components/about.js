@@ -1,22 +1,21 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 const About = () => {
-  const navigate = useNavigate();
+  
   return (
     <>
-      <div className="page_topcon">
-        <div className="pagebackarrow_con" onClick={() => navigate(-1)} title="Go Back">
-          <button className="nav_backbtn"></button>
-          <div className="pagebt backtext">Back</div>
-        </div>
+      <div className="fraud-container">
+        
         <div className="section-header">About</div>
-      </div>
-      <div className="content">
+        <div className="content">
       Your ultimate fraud detection solution for bank employees to detect fraud, spam, and more in real-time!
       </div>
-      <div className="footer_name">
-        <h1 className="team_name">Created by Cracking Code</h1>
+       <Link to="/about" className="about-link">
+                 Developed by Cracking Code
+               </Link>
       </div>
+      
     </>
   );
 };
