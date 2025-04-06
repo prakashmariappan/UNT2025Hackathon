@@ -1,0 +1,47 @@
+<html>
+<head>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        .button:hover {background-color: #3e8e41}
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        .button-red {
+            background-color: #f44336;
+        }
+        .button-red:hover {background-color: #da190b}
+        .button-red:active {
+            background-color: #da190b;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Review Transaction</h1>
+    <p>Please review the transaction details below and confirm if it's a fraud or not:</p>
+    <p><strong>Transaction ID:</strong> {transaction_id}</p>
+    <p><strong>Amount:</strong> ${amount}</p>
+    <p><strong>Date:</strong> {date}</p>
+
+    <!-- Assuming you have endpoints set up to handle these actions -->
+    <a href="{your_domain}/mark_fraud/{transaction_id}" class="button-red">A Fraud</a>
+    <a href="{your_domain}/mark_safe/{transaction_id}" class="button">Not A Fraud</a>
+</body>
+</html>
