@@ -12,10 +12,10 @@ const About = () => {
         <div className="section-header">About</div>
       </div>
       <div className="content">
-      Your ultimate fraud detection solution specially made for bank employees.Detect fraud, spam, and more in real-time!
+      Your ultimate fraud detection solution for bank employees to detect fraud, spam, and more in real-time!
       </div>
       <div className="footer_name">
-        <h1 className="about-link">Created by Cracking Code</h1>
+        <h1 className="team_name">Created by Cracking Code</h1>
       </div>
     </>
   );
