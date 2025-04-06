@@ -26,9 +26,22 @@ body.active.modal {
 html {
   scroll-behavior: smooth;
 }
-:root{
-  --liner-color:rgba(6, 67, 125, 0.6);
-  --site-color:#3498db;
+:root {
+  --liner-color: rgba(6, 67, 125);
+  --site-color: #3498db;
+}
+
+.about-link {
+  font-weight: 250;
+  color: #fff;
+  font-size: 22px;
+  font-style: normal;
+  opacity: 0.5;
+  margin-top: 42px;
+}
+.footer_link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 /*Background Styling*/
 .background {
@@ -53,7 +66,7 @@ html {
     box-shadow: 0px 0px 10px -5px var(--liner-color);
   }
   to {
-    box-shadow: 0px 0px 10px 5px var(--liner-color);;
+    box-shadow: 0px 0px 10px 5px var(--liner-color);
   }
 }
 
@@ -101,6 +114,10 @@ html {
 
 /* Hero Section Styling */
 .hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   margin-bottom: 40px;
 }
 
@@ -145,7 +162,6 @@ html {
   transform: scale(1.1);
 }
 
-
 /*SpamDetection Component Styling*/
 .spam-container {
   padding: 20px;
@@ -156,7 +172,8 @@ html {
   border-collapse: collapse;
 }
 
-.spam-table th, .spam-table td {
+.spam-table th,
+.spam-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
@@ -179,36 +196,70 @@ html {
 }
 
 /*fraudDetection Component Styling*/
+
 .fraud-container {
-  padding: 20px;
+  padding: 30px;
+  text-align: center;
+}
+
+.section-header {
+  font-size: 2rem;
+  color: var(--site-color);
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .fraud-table {
-  width: 100%;
+  width: 80%;
+  margin-top: 20px;
+  margin: auto;
   border-collapse: collapse;
+  background-color: transparent;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-.fraud-table th, .fraud-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+.top-left {
+  border-radius: 10px 0 0 0;
+}
+.top-right {
+  border-radius: 0 10px 0 0;
+}
+.fraud-table th,
+.fraud-table td {
+  padding: 12px 20px;
   text-align: center;
 }
 
 .fraud-table th {
-  background-color: #f2f2f2;
+  background-color: #3498db;
+  color: white;
+  font-size: 1.2rem;
 }
 
-.action-btn {
-  background-color: #f39c12;
-  color: white;
-  border: none;
-  padding: 5px 10px;
+.fraud-table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 10px; /* Apply bottom-left border radius to the first td of the last row */
+}
+
+.fraud-table tbody tr:last-child td:last-child {
+  border-radius: 0 0 10px 0; /* Apply bottom-right border radius to the last td of the last row */
+}
+
+tbody tr:last-child td:last-child {
+  border-radius: 0 0 10px 0; /* Add bottom-right border radius to the last <td> */
+}
+
+.fraud-table tr:hover {
+  background-color: #e1e8f0;
   cursor: pointer;
 }
 
-.action-btn:hover {
-  background-color: #e67e22;
+.fraud-table td {
+  font-size: 1rem;
+  color: #555;
 }
 
-/*biasDetection Component Styling*/
-
+/*About Component Styling*/
+.content {
+  padding: 20px;
+  font-size: 24px;
+}

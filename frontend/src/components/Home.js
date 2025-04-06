@@ -5,13 +5,17 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   return (
     <div className="home-container">
+        
       {/* Hero Section with App Name */}
       <div className="hero-section">
         <h1>Fraud Guard</h1>
         <p>Your ultimate fraud detection solution specially made for bank employees. <br/>Detect fraud, spam, and more in real-time!</p>
+        <Link to="/about" className="about-link">
+          About
+        </Link>
       </div>
-
-      {/* Services Section */}
+    
+      {/* Services Section 
       <div className="services">
         <Link to="/fraud" className="service-link">
           Fraud Detection
@@ -19,7 +23,8 @@ const Home = () => {
         <Link to="/spam" className="service-link">
           Spam Detection
         </Link>
-      </div>
+      </div>*/}
+      
     </div>
   );
 };
